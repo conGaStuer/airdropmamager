@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import "../../../../styles/addForm.scss";
 
 export default function EditAirdropPage() {
-  const apiUrl = "https://airdropmanager.onrender.com";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const [form, setForm] = useState({
     name: "",
