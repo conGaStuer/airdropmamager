@@ -1,0 +1,17 @@
+@mixin center-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+@mixin no-space-text {
+  margin: 0px;
+  padding: 0px;
+}
+.nav-side {
+  width: 70%;
+  height: 10vh;
+  background-color: aqua;
+  position: relative;
+  float: right;
+}

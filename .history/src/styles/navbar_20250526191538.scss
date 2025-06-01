@@ -1,0 +1,58 @@
+@mixin center-div {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+}
+@mixin no-space-text {
+  margin: 0px;
+  padding: 0px;
+}
+.nav-side {
+  width: 82%;
+  height: 10vh;
+  background-color: #ecece9;
+  position: fixed;
+  float: right;
+  right: 0px;
+
+  border-bottom-right-radius: 0px;
+  @include center-div();
+  padding-left: 30px;
+  padding-right: 40px;
+  border-bottom: 0.5px srgb(187, 184, 184) 08080;
+  p {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+  }
+  .menu {
+    width: 120px;
+    height: 90%;
+    @include center-div();
+
+    .iconn {
+      width: 40px;
+      height: 40px;
+      background-color: #fbfbfa;
+      border-radius: 50%;
+      @include center-div();
+      justify-content: center;
+      position: relative;
+      left: 10px;
+      box-shadow: 10px 0 20px -5px rgba(0, 0, 0, 0.1),
+        -10px 0 20px -5px rgba(0, 0, 0, 0.1);
+
+      .icon {
+        font-size: 18px;
+      }
+    }
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      box-shadow: 10px 0 20px -5px rgba(0, 0, 0, 0.1),
+        -10px 0 20px -5px rgba(0, 0, 0, 0.1);
+    }
+  }
+}

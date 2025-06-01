@@ -1,0 +1,30 @@
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 25%;
+  height: 95vh;
+  position: fixed;
+  top: 2.5%;
+  left: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: aqua;
+}
+
+.side-info {
+  width: 80%;
+  height: 25%;
+  background-color: blueviolet;
+}
+.side-menu {
+  width: 80%;
+  height: 55%;
+  background-color: blueviolet;
+}
+.side-logout {
+  width: 80%;
+  height: 15%;
+  background-color: blueviolet;
+}

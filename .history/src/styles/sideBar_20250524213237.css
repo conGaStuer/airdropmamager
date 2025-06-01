@@ -1,0 +1,8 @@
+.side-info {
+  width: 25%;
+  background-color: aqua;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}

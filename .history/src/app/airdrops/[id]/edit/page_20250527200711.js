@@ -1,0 +1,166 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams, useRouter } from "next/navigation";
+import "../../../../styles/addForm.scss";
+
+export default function EditAirdropPage() {
+  const [form, setForm] = useState({
+    name: "",
+    description: "",
+    startDate: "",
+    endDate: "",
+    tokenAmount: 0,
+    requirements: "",
+    backer: "",
+    raised: "",
+    status: "",
+  });
+  const router = useRouter();
+  const { id } = useParams();
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const payload = {
+        ...form,
+        startDate: form.startDate || new Date().toISOString(),
+        endDate: form.endDate || new Date().toISOString(),
+        tokenAmount: form.tokenAmount || 0,
+        requirements: form.requirements || "",
+        raised: form.raised || "",
+        backer: form.backer || "",
+        status: form.requirements || "",
+      };
+
+      console.log("PUT payload:", payload);
+
+      await axios.put(`http://localhost:5000/api/airdrops/${id}`, payload);
+      router.push("/airdrops");
+    } catch (error) {
+      console.error("PUT /api/airdrops/:id error:", error.message, error.stack);
+      alert("Lỗi cập nhật! Xem log để biết chi tiết.");
+    }
+  };
+
+  useEffect(() => {
+    if (!id) return; // Nếu id chưa có thì không fetch
+    axios.get(`http://localhost:5000/api/airdrops`).then((res) => {
+      const data = res.data.find((d) => d.id.toString() === id);
+      if (data) setForm(data);
+    });
+  }, [id]);
+  return (
+    <div className="w-full add-form rounded-xl p-8">
+      <form
+        onSubmit={handleEdit}
+        className="grid grid-cols-2 gap-6 w-[100%] mx-auto bg-white p-9 rounded-xl shadow-md"
+      >
+        {/* Input 1 */}
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium">Airdrop Name</label>
+          <input
+            type="text"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            className="input-field"
+            placeholder="Enter airdrop name"
+          />
+        </div>
+
+        {/* Input 2 */}
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium">Token Amount</label>
+          <input
+            type="text"
+            value={form.tokenAmount}
+            onChange={(e) => setForm({ ...form, tokenAmount: e.target.value })}
+            className="input-field"
+            placeholder="Token name"
+          />
+        </div>
+
+        {/* Input 3 */}
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium">Requirements</label>
+          <input
+            type="text"
+            value={form.requirements}
+            onChange={(e) => setForm({ ...form, requirements: e.target.value })}
+            className="input-field"
+            placeholder="Token name"
+          />
+        </div>
+
+        {/* Input 4 */}
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium">Raised</label>
+          <input
+            type="text"
+            value={form.raised}
+            onChange={(e) => setForm({ ...form, raised: e.target.value })}
+            className="input-field"
+            placeholder="e.g. 1000"
+          />
+        </div>
+
+        {/* Input 5 */}
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium">Backer</label>
+          <input
+            type="text"
+            value={form.backer}
+            onChange={(e) => setForm({ ...form, backer: e.target.value })}
+            className="input-field"
+            placeholder="Token name"
+          />
+        </div>
+
+        {/* Input 6 */}
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium">Start Date</label>
+          <input
+            type="date"
+            value={form.startDate}
+            onChange={(e) => setForm({ ...form, startDate: e.target.value })}
+            className="input-field"
+          />
+        </div>
+
+        {/* Input 7 */}
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium">End Date</label>
+          <input
+            type="date"
+            value={form.endDate}
+            onChange={(e) => setForm({ ...form, endDate: e.target.value })}
+            className="input-field"
+          />
+        </div>
+
+        {/* Input 8 */}
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium">Status</label>
+          <input
+            type="text"
+            value={form.status}
+            onChange={(e) => setForm({ ...form, status: e.target.value })}
+            className="input-field"
+            placeholder="e.g. BSC, ETH"
+          />
+        </div>
+
+        {/* Submit Button - span full width */}
+        <div className="col-span-2 text-center mt-4">
+          <button
+            type="submit"
+            className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition"
+          >
+            Edit
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}

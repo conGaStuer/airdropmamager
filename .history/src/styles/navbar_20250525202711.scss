@@ -1,0 +1,20 @@
+@mixin center-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+@mixin no-space-text {
+  margin: 0px;
+  padding: 0px;
+}
+.nav-side {
+  width: 77%;
+  height: 9vh;
+  background-color: aqua;
+  position: fixed;
+  float: right;
+  right: 20px;
+  top: 2.5%;
+  border-radius: 12px;
+}

@@ -1,0 +1,99 @@
+@mixin center-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+@mixin no-space-text {
+  margin: 0px;
+  padding: 0px;
+}
+.side-bar {
+  @include center-div();
+  width: 25%;
+  height: 95vh;
+  position: fixed;
+  top: 2.5%;
+  left: 20px;
+  border-radius: 20px;
+  background-color: white;
+  color: #c4c4c4;
+  box-shadow: 10px 0 20px -5px rgba(0, 0, 0, 0.05),
+    -10px 0 20px -5px rgba(0, 0, 0, 0.05);
+  .icon {
+    font-size: 15px;
+    margin-right: 10px;
+    position: relative;
+    top: -1px;
+  }
+  .side-info {
+    width: 80%;
+    height: 32%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    h4 {
+      @include no-space-text();
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .user-profile {
+      width: 75%;
+      height: 68%;
+      @include center-div();
+
+      img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+      }
+      h4 {
+        font-size: 21px;
+        font-weight: bold;
+        @include no-space-text();
+        position: relative;
+        top: 5px;
+        color: #0d0c22;
+      }
+      p {
+        @include no-space-text();
+        font-size: 12px;
+        position: relative;
+        top: -8px;
+      }
+    }
+  }
+  .side-menu {
+    width: 80%;
+    height: 50%;
+    @include center-div();
+
+    .menu-element {
+      width: 100%;
+      height: 15%;
+      background-color: white;
+      border-radius: 8px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      color: #0d0c22;
+    }
+    .menu-element1 {
+      background-color: #0d0c22;
+      color: white;
+    }
+  }
+  .side-logout {
+    width: 80%;
+    height: 7%;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    span {
+      font-size: 14px;
+    }
+  }
+}

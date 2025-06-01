@@ -1,0 +1,26 @@
+.add-form {
+  height: 88vh;
+  width: 180vh;
+  margin: 0 auto;
+  position: relative;
+  top: 12px;
+}
+
+form {
+  width: 90%;
+  height: 90%;
+  background-color: aqua;
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .form-left,
+  .form-right {
+    width: 40%;
+    height: 80%;
+    background-color: chocolate;
+    input {
+      padding: 4;
+    }
+  }
+}

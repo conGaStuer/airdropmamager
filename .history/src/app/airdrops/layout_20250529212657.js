@@ -1,0 +1,19 @@
+"use client";
+import React from "react";
+import NavBar from "@/components/NavBar";
+import SideBar from "@/components/SideBar";
+import { WalletProvider } from "@/context/WalletContext";
+
+export default function AirdropLayout({ children }) {
+  return (
+    <WalletProvider>
+      <div className="flex">
+        <SideBar />
+        <div className="flex-1">
+          <NavBar />
+          <main className="pt-14">{children}</main>
+        </div>
+      </div>
+    </WalletProvider>
+  );
+}

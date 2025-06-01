@@ -1,0 +1,10 @@
+.side-info {
+  width: 25%;
+  background-color: aqua;
+  height: 80vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
