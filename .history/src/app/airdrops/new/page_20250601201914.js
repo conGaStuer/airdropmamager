@@ -1,63 +1,34 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
-import "../../../../styles/addForm.scss";
-
-export default function EditAirdropPage() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
+import { useRouter } from "next/navigation";
+import "../../../styles/addForm.scss";
+export default function CreateAirdropPage() {
   const [form, setForm] = useState({
     name: "",
-    description: "",
-    startDate: "",
-    endDate: "",
-    type: 0,
-    tokenAmount: "",
-    backer: "",
+    type: "",
     raised: "",
     status: "",
+    tokenAmount: "",
+    backer: "",
+    startDate: "",
+    endDate: "",
+    link: "",
   });
   const router = useRouter();
-  const { id } = useParams();
-
-  const handleEdit = async (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
-
-    try {
-      const payload = {
-        ...form,
-        startDate: form.startDate || new Date().toISOString(),
-        endDate: form.endDate || new Date().toISOString(),
-        type: form.type || 0,
-        tokenAmount: form.tokenAmount || "",
-        raised: form.raised || "",
-        backer: form.backer || "",
-        status: form.status || "",
-        link: form.link || "",
-      };
-
-      console.log("PUT payload:", payload);
-
-      await axios.put(`${apiUrl}/api/airdrops/${id}`, payload);
-      router.push("/airdrops");
-    } catch (error) {
-      console.error("PUT /api/airdrops/:id error:", error.message, error.stack);
-      alert("Lỗi cập nhật! Xem log để biết chi tiết.");
-    }
+    await axios.post("${apiUrl}/api/airdrops", form);
+    router.push("/airdrops");
   };
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-  useEffect(() => {
-    if (!id) return; // Nếu id chưa có thì không fetch
-    axios.get(`${apiUrl}/api/airdrops`).then((res) => {
-      const data = res.data.find((d) => d.id.toString() === id);
-      if (data) setForm(data);
-    });
-  }, [id]);
   return (
-    <div className="w-full add-form rounded-xl p-8">
+    <div className="w-full max-w-8xl mx-auto bg-white p-10 rounded-xl shadow-md mt-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-semibold text-gray-800">Edit Airdrop</h2>
+        <h2 className="text-2xl font-semibold text-gray-800">
+          Create New Airdrop
+        </h2>
         <button
           type="button"
           onClick={() => router.push("/airdrops")}
@@ -67,7 +38,7 @@ export default function EditAirdropPage() {
           Back
         </button>
       </div>
-      <form onSubmit={handleEdit} className="grid grid-cols-2 gap-6">
+      <form onSubmit={handleCreate} className="grid grid-cols-2 gap-6">
         {/* Airdrop Name */}
         <div>
           <label className="block mb-1 text-sm font-medium text-gray-700">

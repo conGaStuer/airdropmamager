@@ -5,8 +5,6 @@ import { useParams, useRouter } from "next/navigation";
 import "../../../../styles/addForm.scss";
 
 export default function EditAirdropPage() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -39,7 +37,7 @@ export default function EditAirdropPage() {
 
       console.log("PUT payload:", payload);
 
-      await axios.put(`${apiUrl}/api/airdrops/${id}`, payload);
+      await axios.put(`http://localhost:5000/api/airdrops/${id}`, payload);
       router.push("/airdrops");
     } catch (error) {
       console.error("PUT /api/airdrops/:id error:", error.message, error.stack);
@@ -49,7 +47,7 @@ export default function EditAirdropPage() {
 
   useEffect(() => {
     if (!id) return; // Nếu id chưa có thì không fetch
-    axios.get(`${apiUrl}/api/airdrops`).then((res) => {
+    axios.get(`http://localhost:5000/api/airdrops`).then((res) => {
       const data = res.data.find((d) => d.id.toString() === id);
       if (data) setForm(data);
     });

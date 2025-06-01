@@ -29,8 +29,8 @@ export default function AirdropPages() {
   };
   const handleDelete = async (id) => {
     if (confirm("Bạn có chắc muốn xóa airdrop này không?")) {
-      await axios.delete(`${apiUrl}/api/airdrops/${id}`);
-      const res = await axios.get("${apiUrl}/api/airdrops");
+      await axios.delete(`http://localhost:5000/api/airdrops/${id}`);
+      const res = await axios.get("http://localhost:5000/api/airdrops");
       setAirdrops(res.data);
     }
   };
@@ -81,7 +81,7 @@ export default function AirdropPages() {
   useEffect(() => {
     const fetchAirdrops = async () => {
       try {
-        const res = await axios.get("${apiUrl}/api/airdrops");
+        const res = await axios.get("http://localhost:5000/api/airdrops");
         setAirdrops(res.data);
       } catch (err) {
         console.error("Error fetching airdrops:", err);
@@ -90,7 +90,7 @@ export default function AirdropPages() {
 
     const fetchCount = async () => {
       try {
-        const res = await axios.get("${apiUrl}/api/airdrops/count");
+        const res = await axios.get("http://localhost:5000/api/airdrops/count");
         setCount(res.data.total);
       } catch (err) {
         console.error("Error fetching count:", err);
