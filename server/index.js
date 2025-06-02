@@ -5,27 +5,56 @@ const { Airdrop } = require("./models");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// Configure CORS
+app.use(cors({
+  origin: ['https://airdropmanager.onrender.com', 'http://localhost:3000'], // Add local dev if needed
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 app.use(express.json());
+
+// Mount routes
 app.use("/api/airdrops", airdropRoutes);
 
+// Root route
 app.get("/", (req, res) => {
   res.send("Airdrop API is running...");
+});
+
+// GET all airdrops
+app.get("/api/airdrops", async (req, res) => {
+  try {
+    const airdrops = await Airdrop.findAll();
+    res.json(airdrops);
+  } catch (err) {
+    console.error("Error in GET /api/airdrops:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// GET airdrops count
+app.get("/api/airdrops/count", async (req, res) => {
+  try {
+    const count = await Airdrop.count();
+    res.json({ count });
+  } catch (err) {
+    console.error("Error in GET /api/airdrops/count:", err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 // CREATE new airdrop
 app.post("/api/airdrops", async (req, res) => {
   try {
-    const { name, description, startDate, endDate, type, tokenAmount } =
-      req.body;
+    const { name, description, startDate, endDate, type, tokenAmount, link } = req.body;
     const newAirdrop = await Airdrop.create({
       name,
       description,
       startDate: startDate || new Date(),
       endDate: endDate || new Date(),
       type: type || "",
-      link: link || "",
-
+      link: link || "", // Fix: 'link' was referenced but not in req.body
       tokenAmount: tokenAmount || 0,
     });
     res.status(201).json(newAirdrop);
@@ -35,9 +64,6 @@ app.post("/api/airdrops", async (req, res) => {
   }
 });
 
-// UPDATE airdrop by id
-app.use("/api/airdrops", airdropRoutes);
-
 // DELETE airdrop by id
 app.delete("/api/airdrops/:id", async (req, res) => {
   try {
@@ -46,7 +72,6 @@ app.delete("/api/airdrops/:id", async (req, res) => {
     if (!airdrop) {
       return res.status(404).json({ error: "Airdrop không tồn tại" });
     }
-
     await airdrop.destroy();
     res.json({ message: "Xóa thành công" });
   } catch (err) {
